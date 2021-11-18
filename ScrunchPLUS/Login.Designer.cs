@@ -30,7 +30,7 @@ namespace ScrunchPLUS
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Guna.UI2.AnimatorNS.Animation animation3 = new Guna.UI2.AnimatorNS.Animation();
+            Guna.UI2.AnimatorNS.Animation animation1 = new Guna.UI2.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.RegisterPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.LoginPanel = new Guna.UI2.WinForms.Guna2Panel();
@@ -126,12 +126,15 @@ namespace ScrunchPLUS
             // 
             // LoginCheckBoxRemMe
             // 
+            this.LoginCheckBoxRemMe.Animated = true;
             this.LoginCheckBoxRemMe.AutoSize = true;
+            this.LoginCheckBoxRemMe.Checked = true;
             this.LoginCheckBoxRemMe.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.LoginCheckBoxRemMe.CheckedState.BorderRadius = 2;
             this.LoginCheckBoxRemMe.CheckedState.BorderThickness = 0;
             this.LoginCheckBoxRemMe.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.LoginCheckBoxRemMe.CheckMarkColor = System.Drawing.Color.LimeGreen;
+            this.LoginCheckBoxRemMe.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Transition.SetDecoration(this.LoginCheckBoxRemMe, Guna.UI2.AnimatorNS.DecorationType.None);
             this.LoginCheckBoxRemMe.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.LoginCheckBoxRemMe.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(119)))), ((int)(((byte)(124)))));
@@ -717,27 +720,28 @@ namespace ScrunchPLUS
             // 
             // Transition
             // 
-            this.Transition.AnimationType = Guna.UI2.AnimatorNS.AnimationType.ScaleAndHorizSlide;
+            this.Transition.AnimationType = Guna.UI2.AnimatorNS.AnimationType.HorizSlide;
             this.Transition.Cursor = null;
-            animation3.AnimateOnlyDifferences = true;
-            animation3.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.BlindCoeff")));
-            animation3.LeafCoeff = 0F;
-            animation3.MaxTime = 1F;
-            animation3.MinTime = 0F;
-            animation3.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicCoeff")));
-            animation3.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation3.MosaicShift")));
-            animation3.MosaicSize = 0;
-            animation3.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            animation3.RotateCoeff = 0F;
-            animation3.RotateLimit = 0F;
-            animation3.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.ScaleCoeff")));
-            animation3.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation3.SlideCoeff")));
-            animation3.TimeCoeff = 0F;
-            animation3.TransparencyCoeff = 0F;
-            this.Transition.DefaultAnimation = animation3;
+            animation1.AnimateOnlyDifferences = true;
+            animation1.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.BlindCoeff")));
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicCoeff")));
+            animation1.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicShift")));
+            animation1.MosaicSize = 0;
+            animation1.Padding = new System.Windows.Forms.Padding(0);
+            animation1.RotateCoeff = 0F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.ScaleCoeff")));
+            animation1.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.SlideCoeff")));
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 0F;
+            this.Transition.DefaultAnimation = animation1;
             // 
             // Login
             // 
+            this.AcceptButton = this.LoginBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(19)))), ((int)(((byte)(25)))));

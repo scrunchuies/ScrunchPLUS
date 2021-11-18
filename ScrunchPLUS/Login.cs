@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -6,15 +7,32 @@ namespace ScrunchPLUS
 {
     public partial class Login : Form
     {
+        //DiscordFields
+        private DiscordRpc.EventHandlers handlers;
+        private DiscordRpc.RichPresence presence;
+
         public Login()
         {
             InitializeComponent();
+            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
+            int secondsSinceEpoch = (int)t.TotalSeconds;
+            //Discord RPC
+            this.handlers = default(DiscordRpc.EventHandlers);
+            DiscordRpc.Initialize("910304415498510406", ref this.handlers, true, null);
+            this.handlers = default(DiscordRpc.EventHandlers);
+            DiscordRpc.Initialize("910304415498510406", ref this.handlers, true, null);
+            this.presence.details = "HEE HEE HEE HAW";
+            this.presence.state = "Logging in...";
+            this.presence.largeImageKey = "logo";
+            this.presence.largeImageText = "ScrunchPLUS";
+            this.presence.startTimestamp = secondsSinceEpoch;
+            DiscordRpc.UpdatePresence(ref this.presence);
             //RememberMeFiller
             LoginUsernameTxt.Text = ScrunchPLUS.Properties.Settings.Default.UserName;
             LoginPasswordTxt.Text = ScrunchPLUS.Properties.Settings.Default.Password;
-            if (!string.IsNullOrEmpty(LoginUsernameTxt.Text))
+            if (LoginUsernameTxt.Text == string.Empty)
             {
-                LoginCheckBoxRemMe.Checked = true;
+                LoginCheckBoxRemMe.Checked = false;
             }
         }
 
@@ -73,12 +91,12 @@ namespace ScrunchPLUS
 
         private void LoginExit_Click(object sender, System.EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void RegisterExit_Click(object sender, System.EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void LoginSeePassBtn_MouseDown(object sender, MouseEventArgs e)

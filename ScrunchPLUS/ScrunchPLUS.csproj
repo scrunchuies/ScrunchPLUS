@@ -198,6 +198,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiscordRpc.cs" />
+    <Compile Include="Forms\Chat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Chat.Designer.cs">
+      <DependentUpon>Chat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Games.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Games.Designer.cs">
+      <DependentUpon>Games.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\News.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewsForm.Designer.cs">
+      <DependentUpon>News.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Extra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Extra.Designer.cs">
+      <DependentUpon>Extra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\attachment.png" />
+    <None Include="Resources\cover.png" />
     <Content Include="ScrunchAP.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

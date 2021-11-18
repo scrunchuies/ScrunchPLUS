@@ -99,6 +99,8 @@ namespace ScrunchPLUS
         public static string LastLogin { get; set; }
 
         public static string RegisterDate { get; set; }
+
+        public static string ProfilePicture { get; set; }
     }
     internal class ApplicationSettings
     {
@@ -119,6 +121,8 @@ namespace ScrunchPLUS
         public static string Name { get; set; }
 
         public static bool Register { get; set; }
+
+        public static string TotalUsers { get; set; }
     }
 
     internal class OnProgramStart
@@ -135,9 +139,9 @@ namespace ScrunchPLUS
 
         public static void Initialize(string name, string aid, string secret, string version)
         {
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(aid) || string.IsNullOrWhiteSpace(secret) || string.IsNullOrWhiteSpace(version))
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(aid) || string.IsNullOrWhiteSpace(secret) || string.IsNullOrWhiteSpace(version) || name.Contains("APPNAME"))
             {
-                MessageBox.Show("Invalid application information!", Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Failed to initialize your application correctly in Program.cs!", Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 Process.GetCurrentProcess().Kill();
             }
             AID = aid;
@@ -198,6 +202,7 @@ namespace ScrunchPLUS
                             ApplicationSettings.Name = response[10];
                             if (response[11] == "Enabled")
                                 ApplicationSettings.Register = true;
+                            ApplicationSettings.TotalUsers = response[13];
                             if (ApplicationSettings.DeveloperMode)
                             {
                                 MessageBox.Show("Application is in Developer Mode, bypassing integrity and update check!", Name, MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -294,6 +299,63 @@ namespace ScrunchPLUS
                 }
             }
         }
+        public static void UploadPic(string username, string path)
+        {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(path))
+            {
+                MessageBox.Show("Invalid Picture information!", ApplicationSettings.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                Process.GetCurrentProcess().Kill();
+            }
+            string[] response = new string[] { };
+            using (WebClient wc = new WebClient())
+            {
+
+                try
+                {
+                    wc.Proxy = null;
+                    Security.Start();
+                    response = (Encryption.DecryptService(Encoding.Default.GetString(wc.UploadValues(Constants.ApiUrl, new NameValueCollection
+                    {
+                        ["token"] = Encryption.EncryptService(Constants.Token),
+                        ["timestamp"] = Encryption.EncryptService(DateTime.Now.ToString()),
+                        ["aid"] = Encryption.APIService(OnProgramStart.AID),
+                        ["username"] = Encryption.APIService(username),
+                        ["picbytes"] = Encryption.APIService(path),
+                        ["session_id"] = Constants.IV,
+                        ["api_id"] = Constants.APIENCRYPTSALT,
+                        ["api_key"] = Constants.APIENCRYPTKEY,
+                        ["session_key"] = Constants.Key,
+                        ["secret"] = Encryption.APIService(OnProgramStart.Secret),
+                        ["type"] = Encryption.APIService("uploadpic")
+
+                    }))).Split("|".ToCharArray()));
+                    switch (response[0])
+                    {
+                        case "success":
+                            MessageBox.Show("Successfully updated profile picture!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Information);
+                            Security.End();
+                            return;
+                        case "permissions":
+                            MessageBox.Show("Please upgrade your plan to use this feature!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                            Security.End();
+                            return;
+                        case "maxsize":
+                            MessageBox.Show("Image cannot be greater than 1 MB!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                            Security.End();
+                            return;
+                        case "failed":
+                            MessageBox.Show("Failed to upload profile picture!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                            Security.End();
+                            return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    Process.GetCurrentProcess().Kill();
+                }
+            }
+        }
         public static bool AIO(string AIO)
         {
             if (AIOLogin(AIO))
@@ -378,6 +440,7 @@ namespace ScrunchPLUS
                             User.LastLogin = response[12];
                             User.RegisterDate = response[13];
                             string Variables = response[14];
+                            User.ProfilePicture = response[15];
                             foreach (string var in Variables.Split('~'))
                             {
                                 string[] items = var.Split('^');
@@ -557,6 +620,7 @@ namespace ScrunchPLUS
                             User.LastLogin = response[12];
                             User.RegisterDate = response[13];
                             string Variables = response[14];
+                            User.ProfilePicture = response[15];
                             foreach (string var in Variables.Split('~'))
                             {
                                 string[] items = var.Split('^');
@@ -836,7 +900,7 @@ namespace ScrunchPLUS
         {
             return certificate != null && certificate.GetPublicKeyString() == _key;
         }
-        private const string _key = "04D9F7C0C68DA3FDE380C3BBE2F87D09BB546B7DE5254DEAC4DC2DCA4A612A83585431E98B49A91A6D854D1128C133E92D5A6BFED12EF5043FF6AC5E77973135E6";
+        private const string _key = "045C03C7FB0E76A822AB197B6663C288D9632E55B39B80296CBCD978707A7E5B3EAE1DB5D487CE9F0E448C3557079CE142F5A41B7F1F6436077D8F3FF7C311888C";
         public static string Integrity(string filename)
         {
             string result;
@@ -855,7 +919,7 @@ namespace ScrunchPLUS
             DateTime dt1 = DateTime.Parse(date); //time sent
             DateTime dt2 = DateTime.Now; //time received
             TimeSpan d3 = dt1 - dt2;
-            if (Convert.ToInt32(d3.Seconds.ToString().Replace("-", "")) >= 15 || Convert.ToInt32(d3.Minutes.ToString().Replace("-", "")) >= 1)
+            if (Convert.ToInt32(d3.Seconds.ToString().Replace("-", "")) >= 5 || Convert.ToInt32(d3.Minutes.ToString().Replace("-", "")) >= 1)
             {
                 Constants.Breached = true;
                 return true;
