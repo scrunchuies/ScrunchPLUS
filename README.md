@@ -8,12 +8,11 @@ ScrunchPLUS is made by a single person and is always criticized by one person, w
 
 ## Getting Started
 
-* All you will need is the .exe itself.
+* Download ScrunchPLUS from [release history]().
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* All you will need is the .exe itself.
 
 ### Installing
 
