@@ -123,14 +123,14 @@
   <metadata name="Elipse.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>140, 17</value>
   </metadata>
-  <metadata name="DragControl.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="DragControlTop.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>223, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="HomeBtn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAADawAAAWgCAIAAACHPXJUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAA/7JJREFUeF7s/Qd3G9fdsP2eb3Bc1AtFEsBUdIC9AJiZvWcAUs09sR07cZzETnHv
+        vAAADrwBlbxySQAA/7JJREFUeF7s/Qd3G9fdsP2eb3Bc1AtFEsBUdIC9AJiZvWcAUs09sR07cZzETnHv
         jltix457ka0uNvTCJrndJc/zrvd8rzMDShRJybnjO820r7V+CwscgiBViNlYuPDf/5//7817AQAAAAAA
         AAAAAAAAAAAAth0iSAAAAAAAAAAAAAAAAAAAsC0RQQIAAAAAAAAAAAAAAAAAgG2JCBIAAAAAAAAAAAAA
         AAAAAGxLRJAAAAAAAAAAAAAAAAAAAGBbIoIEAAAAAAAAAAAAAAAAAADbEhEkAAAAAAAAAAAAAAAAAADY
@@ -10855,4 +10855,10 @@
         XRLg+fRBAAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="DragControlMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>356, 17</value>
+  </metadata>
+  <metadata name="DragControlSettings.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>493, 17</value>
+  </metadata>
 </root>

@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Security;
@@ -125,7 +124,7 @@ namespace ScrunchPLUS
         public static string TotalUsers { get; set; }
     }
 
-    internal class OnProgramStart
+    internal class ProgramInitializer
     {
         public static string AID = null;
 
@@ -171,12 +170,12 @@ namespace ScrunchPLUS
                     }))).Split("|".ToCharArray()));
                     if (Security.MaliciousCheck(response[1]))
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Constants.Breached)
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     if (response[0] != Constants.Token)
@@ -261,7 +260,7 @@ namespace ScrunchPLUS
         {
             if (!Constants.Initialized)
             {
-                MessageBox.Show("Please initialize your application first!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please initialize your application first!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 Process.GetCurrentProcess().Kill();
             }
             if (string.IsNullOrWhiteSpace(action))
@@ -279,7 +278,7 @@ namespace ScrunchPLUS
                     response = (Encryption.DecryptService(Encoding.Default.GetString(wc.UploadValues(Constants.ApiUrl, new NameValueCollection
                     {
                         ["token"] = Encryption.EncryptService(Constants.Token),
-                        ["aid"] = Encryption.APIService(OnProgramStart.AID),
+                        ["aid"] = Encryption.APIService(ProgramInitializer.AID),
                         ["username"] = Encryption.APIService(username),
                         ["pcuser"] = Encryption.APIService(Environment.UserName),
                         ["session_id"] = Constants.IV,
@@ -287,14 +286,14 @@ namespace ScrunchPLUS
                         ["api_key"] = Constants.APIENCRYPTKEY,
                         ["data"] = Encryption.APIService(action),
                         ["session_key"] = Constants.Key,
-                        ["secret"] = Encryption.APIService(OnProgramStart.Secret),
+                        ["secret"] = Encryption.APIService(ProgramInitializer.Secret),
                         ["type"] = Encryption.APIService("log")
                     }))).Split("|".ToCharArray()));
                     Security.End();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                     Process.GetCurrentProcess().Kill();
                 }
             }
@@ -318,40 +317,40 @@ namespace ScrunchPLUS
                     {
                         ["token"] = Encryption.EncryptService(Constants.Token),
                         ["timestamp"] = Encryption.EncryptService(DateTime.Now.ToString()),
-                        ["aid"] = Encryption.APIService(OnProgramStart.AID),
+                        ["aid"] = Encryption.APIService(ProgramInitializer.AID),
                         ["username"] = Encryption.APIService(username),
                         ["picbytes"] = Encryption.APIService(path),
                         ["session_id"] = Constants.IV,
                         ["api_id"] = Constants.APIENCRYPTSALT,
                         ["api_key"] = Constants.APIENCRYPTKEY,
                         ["session_key"] = Constants.Key,
-                        ["secret"] = Encryption.APIService(OnProgramStart.Secret),
+                        ["secret"] = Encryption.APIService(ProgramInitializer.Secret),
                         ["type"] = Encryption.APIService("uploadpic")
 
                     }))).Split("|".ToCharArray()));
                     switch (response[0])
                     {
                         case "success":
-                            MessageBox.Show("Successfully updated profile picture!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Successfully updated profile picture!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Information);
                             Security.End();
                             return;
                         case "permissions":
-                            MessageBox.Show("Please upgrade your plan to use this feature!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Please upgrade your plan to use this feature!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                             Security.End();
                             return;
                         case "maxsize":
-                            MessageBox.Show("Image cannot be greater than 1 MB!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Image cannot be greater than 1 MB!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                             Security.End();
                             return;
                         case "failed":
-                            MessageBox.Show("Failed to upload profile picture!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Failed to upload profile picture!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                             Security.End();
                             return;
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                     Process.GetCurrentProcess().Kill();
                 }
             }
@@ -378,7 +377,7 @@ namespace ScrunchPLUS
         {
             if (!Constants.Initialized)
             {
-                MessageBox.Show("Please initialize your application first!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please initialize your application first!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 Process.GetCurrentProcess().Kill();
             }
             if (string.IsNullOrWhiteSpace(AIO))
@@ -397,7 +396,7 @@ namespace ScrunchPLUS
                     {
                         ["token"] = Encryption.EncryptService(Constants.Token),
                         ["timestamp"] = Encryption.EncryptService(DateTime.Now.ToString()),
-                        ["aid"] = Encryption.APIService(OnProgramStart.AID),
+                        ["aid"] = Encryption.APIService(ProgramInitializer.AID),
                         ["session_id"] = Constants.IV,
                         ["api_id"] = Constants.APIENCRYPTSALT,
                         ["api_key"] = Constants.APIENCRYPTKEY,
@@ -405,23 +404,23 @@ namespace ScrunchPLUS
                         ["password"] = Encryption.APIService(AIO),
                         ["hwid"] = Encryption.APIService(Constants.HWID()),
                         ["session_key"] = Constants.Key,
-                        ["secret"] = Encryption.APIService(OnProgramStart.Secret),
+                        ["secret"] = Encryption.APIService(ProgramInitializer.Secret),
                         ["type"] = Encryption.APIService("login")
 
                     }))).Split("|".ToCharArray()));
                     if (response[0] != Constants.Token)
                     {
-                        MessageBox.Show("Security error has been triggered!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Security error has been triggered!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Security.MaliciousCheck(response[1]))
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Constants.Breached)
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     switch (response[2])
@@ -486,7 +485,7 @@ namespace ScrunchPLUS
         {
             if (!Constants.Initialized)
             {
-                MessageBox.Show("Please initialize your application first!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please initialize your application first!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 Security.End();
                 Process.GetCurrentProcess().Kill();
             }
@@ -507,12 +506,12 @@ namespace ScrunchPLUS
                     {
                         ["token"] = Encryption.EncryptService(Constants.Token),
                         ["timestamp"] = Encryption.EncryptService(DateTime.Now.ToString()),
-                        ["aid"] = Encryption.APIService(OnProgramStart.AID),
+                        ["aid"] = Encryption.APIService(ProgramInitializer.AID),
                         ["session_id"] = Constants.IV,
                         ["api_id"] = Constants.APIENCRYPTSALT,
                         ["api_key"] = Constants.APIENCRYPTKEY,
                         ["session_key"] = Constants.Key,
-                        ["secret"] = Encryption.APIService(OnProgramStart.Secret),
+                        ["secret"] = Encryption.APIService(ProgramInitializer.Secret),
                         ["type"] = Encryption.APIService("register"),
                         ["username"] = Encryption.APIService(AIO),
                         ["password"] = Encryption.APIService(AIO),
@@ -523,18 +522,18 @@ namespace ScrunchPLUS
                     }))).Split("|".ToCharArray());
                     if (response[0] != Constants.Token)
                     {
-                        MessageBox.Show("Security error has been triggered!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Security error has been triggered!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         Security.End();
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Security.MaliciousCheck(response[1]))
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Constants.Breached)
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     Security.End();
@@ -559,7 +558,7 @@ namespace ScrunchPLUS
         {
             if (!Constants.Initialized)
             {
-                MessageBox.Show("Please initialize your application first!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please initialize your application first!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 Process.GetCurrentProcess().Kill();
             }
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
@@ -578,7 +577,7 @@ namespace ScrunchPLUS
                     {
                         ["token"] = Encryption.EncryptService(Constants.Token),
                         ["timestamp"] = Encryption.EncryptService(DateTime.Now.ToString()),
-                        ["aid"] = Encryption.APIService(OnProgramStart.AID),
+                        ["aid"] = Encryption.APIService(ProgramInitializer.AID),
                         ["session_id"] = Constants.IV,
                         ["api_id"] = Constants.APIENCRYPTSALT,
                         ["api_key"] = Constants.APIENCRYPTKEY,
@@ -586,23 +585,23 @@ namespace ScrunchPLUS
                         ["password"] = Encryption.APIService(password),
                         ["hwid"] = Encryption.APIService(Constants.HWID()),
                         ["session_key"] = Constants.Key,
-                        ["secret"] = Encryption.APIService(OnProgramStart.Secret),
+                        ["secret"] = Encryption.APIService(ProgramInitializer.Secret),
                         ["type"] = Encryption.APIService("login")
 
                     }))).Split("|".ToCharArray()));
                     if (response[0] != Constants.Token)
                     {
-                        MessageBox.Show("Security error has been triggered!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Security error has been triggered!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Security.MaliciousCheck(response[1]))
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Constants.Breached)
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     switch (response[2])
@@ -668,7 +667,7 @@ namespace ScrunchPLUS
         {
             if (!Constants.Initialized)
             {
-                MessageBox.Show("Please initialize your application first!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please initialize your application first!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 Security.End();
                 Process.GetCurrentProcess().Kill();
             }
@@ -689,12 +688,12 @@ namespace ScrunchPLUS
                     {
                         ["token"] = Encryption.EncryptService(Constants.Token),
                         ["timestamp"] = Encryption.EncryptService(DateTime.Now.ToString()),
-                        ["aid"] = Encryption.APIService(OnProgramStart.AID),
+                        ["aid"] = Encryption.APIService(ProgramInitializer.AID),
                         ["session_id"] = Constants.IV,
                         ["api_id"] = Constants.APIENCRYPTSALT,
                         ["api_key"] = Constants.APIENCRYPTKEY,
                         ["session_key"] = Constants.Key,
-                        ["secret"] = Encryption.APIService(OnProgramStart.Secret),
+                        ["secret"] = Encryption.APIService(ProgramInitializer.Secret),
                         ["type"] = Encryption.APIService("register"),
                         ["username"] = Encryption.APIService(username),
                         ["password"] = Encryption.APIService(password),
@@ -705,18 +704,18 @@ namespace ScrunchPLUS
                     }))).Split("|".ToCharArray());
                     if (response[0] != Constants.Token)
                     {
-                        MessageBox.Show("Security error has been triggered!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Security error has been triggered!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         Security.End();
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Security.MaliciousCheck(response[1]))
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Constants.Breached)
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     switch (response[2])
@@ -750,7 +749,7 @@ namespace ScrunchPLUS
         {
             if (!Constants.Initialized)
             {
-                MessageBox.Show("Please initialize your application first!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please initialize your application first!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 Security.End();
                 Process.GetCurrentProcess().Kill();
             }
@@ -770,12 +769,12 @@ namespace ScrunchPLUS
                     {
                         ["token"] = Encryption.EncryptService(Constants.Token),
                         ["timestamp"] = Encryption.EncryptService(DateTime.Now.ToString()),
-                        ["aid"] = Encryption.APIService(OnProgramStart.AID),
+                        ["aid"] = Encryption.APIService(ProgramInitializer.AID),
                         ["session_id"] = Constants.IV,
                         ["api_id"] = Constants.APIENCRYPTSALT,
                         ["api_key"] = Constants.APIENCRYPTKEY,
                         ["session_key"] = Constants.Key,
-                        ["secret"] = Encryption.APIService(OnProgramStart.Secret),
+                        ["secret"] = Encryption.APIService(ProgramInitializer.Secret),
                         ["type"] = Encryption.APIService("extend"),
                         ["username"] = Encryption.APIService(username),
                         ["password"] = Encryption.APIService(password),
@@ -784,18 +783,18 @@ namespace ScrunchPLUS
                     }))).Split("|".ToCharArray());
                     if (response[0] != Constants.Token)
                     {
-                        MessageBox.Show("Security error has been triggered!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Security error has been triggered!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         Security.End();
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Security.MaliciousCheck(response[1]))
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     if (Constants.Breached)
                     {
-                        MessageBox.Show("Possible malicious activity detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Possible malicious activity detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                         Process.GetCurrentProcess().Kill();
                     }
                     switch (response[2])
@@ -852,7 +851,7 @@ namespace ScrunchPLUS
             string drive = Path.GetPathRoot(Environment.SystemDirectory);
             if (Constants.Started)
             {
-                MessageBox.Show("A session has already been started, please end the previous one!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("A session has already been started, please end the previous one!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                 Process.GetCurrentProcess().Kill();
             }
             else
@@ -863,7 +862,7 @@ namespace ScrunchPLUS
                     if (contents.Contains("api.auth.gg"))
                     {
                         Constants.Breached = true;
-                        MessageBox.Show("DNS redirecting has been detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("DNS redirecting has been detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         Process.GetCurrentProcess().Kill();
                     }
                 }
@@ -882,7 +881,7 @@ namespace ScrunchPLUS
         {
             if (!Constants.Started)
             {
-                MessageBox.Show("No session has been started, closing for security reasons!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("No session has been started, closing for security reasons!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Warning);
                 Process.GetCurrentProcess().Kill();
             }
             else
@@ -950,7 +949,7 @@ namespace ScrunchPLUS
             byte[] key = mySHA256.ComputeHash(Encoding.ASCII.GetBytes(password));
             byte[] iv = Encoding.ASCII.GetBytes(Encoding.Default.GetString(Convert.FromBase64String(Constants.APIENCRYPTSALT)));
             string encrypted = EncryptString(message, key, iv);
-            int property = Int32.Parse((OnProgramStart.AID.Substring(0, 2)));
+            int property = Int32.Parse((ProgramInitializer.AID.Substring(0, 2)));
             string final = encrypted + Security.Obfuscate(property);
             return final;
         }
@@ -1045,7 +1044,7 @@ namespace ScrunchPLUS
             if (!(GetGatewayMAC() == lastGateway))
             {
                 Constants.Breached = true;
-                MessageBox.Show("ARP Cache poisoning has been detected!", OnProgramStart.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("ARP Cache poisoning has been detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 Process.GetCurrentProcess().Kill();
             }
             else

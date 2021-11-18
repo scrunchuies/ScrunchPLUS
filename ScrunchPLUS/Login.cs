@@ -14,6 +14,7 @@ namespace ScrunchPLUS
         public Login()
         {
             InitializeComponent();
+            //EpochTime
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
             int secondsSinceEpoch = (int)t.TotalSeconds;
             //Discord RPC
@@ -91,12 +92,12 @@ namespace ScrunchPLUS
 
         private void LoginExit_Click(object sender, System.EventArgs e)
         {
-            Environment.Exit(0);
+            Application.Exit();
         }
 
         private void RegisterExit_Click(object sender, System.EventArgs e)
         {
-            Environment.Exit(0);
+            Application.Exit();
         }
 
         private void LoginSeePassBtn_MouseDown(object sender, MouseEventArgs e)

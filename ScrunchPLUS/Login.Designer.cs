@@ -30,7 +30,7 @@ namespace ScrunchPLUS
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Guna.UI2.AnimatorNS.Animation animation1 = new Guna.UI2.AnimatorNS.Animation();
+            Guna.UI2.AnimatorNS.Animation animation6 = new Guna.UI2.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.RegisterPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.LoginPanel = new Guna.UI2.WinForms.Guna2Panel();
@@ -40,8 +40,8 @@ namespace ScrunchPLUS
             this.LoginMinimize = new Guna.UI2.WinForms.Guna2ControlBox();
             this.LoginExit = new Guna.UI2.WinForms.Guna2ControlBox();
             this.GoToRegisterBtn = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.LoginLbl2 = new System.Windows.Forms.Label();
-            this.LoginLbl1 = new System.Windows.Forms.Label();
+            this.labelLoginSub = new System.Windows.Forms.Label();
+            this.labelLoginMain = new System.Windows.Forms.Label();
             this.LoginBtn = new Guna.UI2.WinForms.Guna2GradientButton();
             this.LoginPasswordTxt = new Guna.UI2.WinForms.Guna2TextBox();
             this.LoginUsernameTxt = new Guna.UI2.WinForms.Guna2TextBox();
@@ -109,8 +109,8 @@ namespace ScrunchPLUS
             this.LoginPanel.Controls.Add(this.LoginMinimize);
             this.LoginPanel.Controls.Add(this.LoginExit);
             this.LoginPanel.Controls.Add(this.GoToRegisterBtn);
-            this.LoginPanel.Controls.Add(this.LoginLbl2);
-            this.LoginPanel.Controls.Add(this.LoginLbl1);
+            this.LoginPanel.Controls.Add(this.labelLoginSub);
+            this.LoginPanel.Controls.Add(this.labelLoginMain);
             this.LoginPanel.Controls.Add(this.LoginBtn);
             this.LoginPanel.Controls.Add(this.LoginPasswordTxt);
             this.LoginPanel.Controls.Add(this.LoginUsernameTxt);
@@ -240,29 +240,29 @@ namespace ScrunchPLUS
             this.GoToRegisterBtn.Text = "Sign Up";
             this.GoToRegisterBtn.Click += new System.EventHandler(this.GoToRegisterBtn_Click);
             // 
-            // LoginLbl2
+            // labelLoginSub
             // 
-            this.LoginLbl2.AutoSize = true;
-            this.Transition.SetDecoration(this.LoginLbl2, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.LoginLbl2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.LoginLbl2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(119)))), ((int)(((byte)(124)))));
-            this.LoginLbl2.Location = new System.Drawing.Point(303, 140);
-            this.LoginLbl2.Name = "LoginLbl2";
-            this.LoginLbl2.Size = new System.Drawing.Size(106, 15);
-            this.LoginLbl2.TabIndex = 40;
-            this.LoginLbl2.Text = "Please login here :)";
+            this.labelLoginSub.AutoSize = true;
+            this.Transition.SetDecoration(this.labelLoginSub, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.labelLoginSub.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelLoginSub.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(119)))), ((int)(((byte)(124)))));
+            this.labelLoginSub.Location = new System.Drawing.Point(303, 140);
+            this.labelLoginSub.Name = "labelLoginSub";
+            this.labelLoginSub.Size = new System.Drawing.Size(106, 15);
+            this.labelLoginSub.TabIndex = 40;
+            this.labelLoginSub.Text = "Please login here :)";
             // 
-            // LoginLbl1
+            // labelLoginMain
             // 
-            this.LoginLbl1.AutoSize = true;
-            this.Transition.SetDecoration(this.LoginLbl1, Guna.UI2.AnimatorNS.DecorationType.None);
-            this.LoginLbl1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
-            this.LoginLbl1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(140)))), ((int)(((byte)(244)))));
-            this.LoginLbl1.Location = new System.Drawing.Point(301, 110);
-            this.LoginLbl1.Name = "LoginLbl1";
-            this.LoginLbl1.Size = new System.Drawing.Size(260, 28);
-            this.LoginLbl1.TabIndex = 41;
-            this.LoginLbl1.Text = "Welcome to ScrunchPLUS!";
+            this.labelLoginMain.AutoSize = true;
+            this.Transition.SetDecoration(this.labelLoginMain, Guna.UI2.AnimatorNS.DecorationType.None);
+            this.labelLoginMain.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
+            this.labelLoginMain.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(140)))), ((int)(((byte)(244)))));
+            this.labelLoginMain.Location = new System.Drawing.Point(301, 110);
+            this.labelLoginMain.Name = "labelLoginMain";
+            this.labelLoginMain.Size = new System.Drawing.Size(260, 28);
+            this.labelLoginMain.TabIndex = 41;
+            this.labelLoginMain.Text = "Welcome to ScrunchPLUS!";
             // 
             // LoginBtn
             // 
@@ -722,22 +722,22 @@ namespace ScrunchPLUS
             // 
             this.Transition.AnimationType = Guna.UI2.AnimatorNS.AnimationType.HorizSlide;
             this.Transition.Cursor = null;
-            animation1.AnimateOnlyDifferences = true;
-            animation1.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.BlindCoeff")));
-            animation1.LeafCoeff = 0F;
-            animation1.MaxTime = 1F;
-            animation1.MinTime = 0F;
-            animation1.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicCoeff")));
-            animation1.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicShift")));
-            animation1.MosaicSize = 0;
-            animation1.Padding = new System.Windows.Forms.Padding(0);
-            animation1.RotateCoeff = 0F;
-            animation1.RotateLimit = 0F;
-            animation1.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.ScaleCoeff")));
-            animation1.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.SlideCoeff")));
-            animation1.TimeCoeff = 0F;
-            animation1.TransparencyCoeff = 0F;
-            this.Transition.DefaultAnimation = animation1;
+            animation6.AnimateOnlyDifferences = true;
+            animation6.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation6.BlindCoeff")));
+            animation6.LeafCoeff = 0F;
+            animation6.MaxTime = 1F;
+            animation6.MinTime = 0F;
+            animation6.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation6.MosaicCoeff")));
+            animation6.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation6.MosaicShift")));
+            animation6.MosaicSize = 0;
+            animation6.Padding = new System.Windows.Forms.Padding(0);
+            animation6.RotateCoeff = 0F;
+            animation6.RotateLimit = 0F;
+            animation6.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation6.ScaleCoeff")));
+            animation6.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation6.SlideCoeff")));
+            animation6.TimeCoeff = 0F;
+            animation6.TransparencyCoeff = 0F;
+            this.Transition.DefaultAnimation = animation6;
             // 
             // Login
             // 
@@ -770,8 +770,8 @@ namespace ScrunchPLUS
         private Guna.UI2.WinForms.Guna2ControlBox LoginMinimize;
         private Guna.UI2.WinForms.Guna2ControlBox LoginExit;
         private Guna.UI2.WinForms.Guna2GradientButton GoToRegisterBtn;
-        private System.Windows.Forms.Label LoginLbl2;
-        private System.Windows.Forms.Label LoginLbl1;
+        private System.Windows.Forms.Label labelLoginSub;
+        private System.Windows.Forms.Label labelLoginMain;
         private Guna.UI2.WinForms.Guna2GradientButton LoginBtn;
         private Guna.UI2.WinForms.Guna2TextBox LoginPasswordTxt;
         private Guna.UI2.WinForms.Guna2TextBox LoginUsernameTxt;

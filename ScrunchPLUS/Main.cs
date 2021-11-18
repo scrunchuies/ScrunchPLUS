@@ -3,13 +3,17 @@ using ScrunchPLUS.Forms;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Net.Mail;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ScrunchPLUS
 {
     public partial class Main : Form
     {
+        //DiscordFields
+        private DiscordRpc.EventHandlers handlers;
+        private DiscordRpc.RichPresence presence;
+
         //Fields
         private IconButton currentBtn;
         private Panel leftBorderBtn;
@@ -18,6 +22,31 @@ namespace ScrunchPLUS
         public Main()
         {
             InitializeComponent();
+            //Auth.GG Info Loader
+            pictureBoxPFPMain.Load(User.ProfilePicture);
+            pictureBoxPFPSettings.Load(User.ProfilePicture);
+            labelWelcomeMain.Text = "Welcome back, " + User.Username + "!";
+            labelWelcomeSettings.Text = "Welcome back, " + User.Username + "!";
+            label1.Text = "ID: " + User.ID;
+            label2.Text = "Username: " + User.Username;
+            label3.Text = "Email: " + User.Email;
+            label4.Text = "IP: " + User.IP;
+            label5.Text = "Expiry: " + User.Expiry;
+            label6.Text = "Last Login: " + User.LastLogin;
+            label7.Text = "Register Date: " + User.RegisterDate;
+            //Discord RPC
+            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
+            int secondsSinceEpoch = (int)t.TotalSeconds;
+            this.handlers = default(DiscordRpc.EventHandlers);
+            DiscordRpc.Initialize("910304415498510406", ref this.handlers, true, null);
+            this.handlers = default(DiscordRpc.EventHandlers);
+            DiscordRpc.Initialize("910304415498510406", ref this.handlers, true, null);
+            this.presence.details = "HAW HAW HAW HEE";
+            this.presence.state = "Browsing main menu...";
+            this.presence.largeImageKey = "logo";
+            this.presence.largeImageText = "ScrunchPLUS";
+            this.presence.startTimestamp = secondsSinceEpoch;
+            DiscordRpc.UpdatePresence(ref this.presence);
             //Panel
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
@@ -101,6 +130,8 @@ namespace ScrunchPLUS
             iconCurrentChildForm.IconChar = IconChar.Home;
             iconCurrentChildForm.IconColor = Color.MediumPurple;
             iconCurrentChildForm.Text = "Home";
+            panelSettings.Dock = DockStyle.None;
+            panelSettings.Location = new Point(1000, 1000);
         }
 
         //Events
@@ -148,11 +179,26 @@ namespace ScrunchPLUS
         private void SettingsBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
+            iconCurrentChildForm.Text = "Settings";
+            panelSettings.Dock = DockStyle.Fill;
+            panelSettings.Location = new Point(882, 641);
         }
 
         private void MainExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void UploadPfpBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Image Files(*.jpg; *.png; *.jpeg; *.gif; *.bmp)|*.jpg; *.png; *.jpeg; *.gif; *.bmp)";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                string profilepic = open.FileName;
+                string pic = Convert.ToBase64String(File.ReadAllBytes(profilepic));
+                API.UploadPic(User.Username, pic);
+            }
         }
     }
 }
