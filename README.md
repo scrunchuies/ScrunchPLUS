@@ -22,7 +22,7 @@ ScrunchPLUS is made by a single person and is always criticized by one person, w
 
 ### Executing program
 
-**ATTENTION**
+**ATTENTION!!** you must have a license key. To get a key, go to the ScrunchPLUS discord server.
 
 * To sign in its simple, enter your username and password that you created during registering your license key.
 * To register, enter in your license key, email, username, and password. After successfully registering, go back to the main sign-in page and login.
@@ -45,4 +45,4 @@ Contributors names and contact info
 
 ## License
 
-This project is licensed under the [ScrunchPLUS Co.] License
+This project is licensed under the ScrunchPLUS Co.
