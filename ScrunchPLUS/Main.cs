@@ -3,17 +3,12 @@ using ScrunchPLUS.Forms;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace ScrunchPLUS
 {
     public partial class Main : Form
     {
-        //DiscordFields
-        private DiscordRpc.EventHandlers handlers;
-        private DiscordRpc.RichPresence presence;
-
         //Fields
         private IconButton currentBtn;
         private Panel leftBorderBtn;
@@ -22,6 +17,17 @@ namespace ScrunchPLUS
         public Main()
         {
             InitializeComponent();
+            //Settings
+            SettingsInitializer settingsInitializer = new SettingsInitializer();
+            settingsInitializer.DiscordRpcMainInitializer();
+            if (ScrunchPLUS.Properties.Settings.Default.AutoLogin == "true")
+            {
+                AutoLogonBtn.Checked = true;
+            }
+            if (ScrunchPLUS.Properties.Settings.Default.DiscordRpc == "true")
+            {
+                DiscordStatusBtn.Checked = true;
+            }
             //Auth.GG Info Loader
             pictureBoxPFPMain.Load(User.ProfilePicture);
             pictureBoxPFPSettings.Load(User.ProfilePicture);
@@ -34,19 +40,6 @@ namespace ScrunchPLUS
             label5.Text = "Expiry: " + User.Expiry;
             label6.Text = "Last Login: " + User.LastLogin;
             label7.Text = "Register Date: " + User.RegisterDate;
-            //Discord RPC
-            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
-            int secondsSinceEpoch = (int)t.TotalSeconds;
-            this.handlers = default(DiscordRpc.EventHandlers);
-            DiscordRpc.Initialize("910304415498510406", ref this.handlers, true, null);
-            this.handlers = default(DiscordRpc.EventHandlers);
-            DiscordRpc.Initialize("910304415498510406", ref this.handlers, true, null);
-            this.presence.details = "HAW HAW HAW HEE";
-            this.presence.state = "Browsing main menu...";
-            this.presence.largeImageKey = "logo";
-            this.presence.largeImageText = "ScrunchPLUS";
-            this.presence.startTimestamp = secondsSinceEpoch;
-            DiscordRpc.UpdatePresence(ref this.presence);
             //Panel
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
@@ -199,6 +192,36 @@ namespace ScrunchPLUS
                 string pic = Convert.ToBase64String(File.ReadAllBytes(profilepic));
                 API.UploadPic(User.Username, pic);
             }
+        }
+
+        private void AutoLogonBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (AutoLogonBtn.Checked == true)
+            {
+                ScrunchPLUS.Properties.Settings.Default.AutoLogin = "true";
+            }
+            else if (AutoLogonBtn.Checked == false)
+            {
+                ScrunchPLUS.Properties.Settings.Default.AutoLogin = "false";
+            }
+            Console.WriteLine("Value of button saved: " + ScrunchPLUS.Properties.Settings.Default.AutoLogin);
+            Console.WriteLine("Button checked: " + AutoLogonBtn.Checked);
+            ScrunchPLUS.Properties.Settings.Default.Save();
+        }
+
+        private void DiscordStatusBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DiscordStatusBtn.Checked == true)
+            {
+                ScrunchPLUS.Properties.Settings.Default.DiscordRpc = "true";
+            }
+            else if (DiscordStatusBtn.Checked == false)
+            {
+                ScrunchPLUS.Properties.Settings.Default.DiscordRpc = "false";
+            }
+            Console.WriteLine("Value of button saved: " + ScrunchPLUS.Properties.Settings.Default.DiscordRpc);
+            Console.WriteLine("Button checked: " + DiscordStatusBtn.Checked);
+            ScrunchPLUS.Properties.Settings.Default.Save();
         }
     }
 }

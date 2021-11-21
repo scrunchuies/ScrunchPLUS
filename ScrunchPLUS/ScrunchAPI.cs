@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Security;
@@ -150,7 +151,6 @@ namespace ScrunchPLUS
             string[] response = new string[] { };
             using (WebClient wc = new WebClient())
             {
-
                 try
                 {
                     wc.Proxy = null;
@@ -1041,7 +1041,7 @@ namespace ScrunchPLUS
         private void OnCallBack()
         {
             timer.Dispose();
-            if (!(GetGatewayMAC() == lastGateway))
+            if (GetGatewayMAC() != lastGateway)
             {
                 Constants.Breached = true;
                 MessageBox.Show("ARP Cache poisoning has been detected!", ProgramInitializer.Name, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1069,12 +1069,14 @@ namespace ScrunchPLUS
         private string GetArpTable()
         {
             string drive = Path.GetPathRoot(Environment.SystemDirectory);
-            ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = $@"{drive}Windows\System32\arp.exe";
-            start.Arguments = "-a";
-            start.UseShellExecute = false;
-            start.RedirectStandardOutput = true;
-            start.CreateNoWindow = true;
+            ProcessStartInfo start = new ProcessStartInfo
+            {
+                FileName = $@"{drive}Windows\System32\arp.exe",
+                Arguments = "-a",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
+            };
 
             using (Process process = Process.Start(start))
             {

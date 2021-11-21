@@ -50,8 +50,6 @@ namespace ScrunchPLUS
             this.panelLogo = new System.Windows.Forms.Panel();
             this.HomeBtn = new System.Windows.Forms.PictureBox();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.labelWelcomeMain = new System.Windows.Forms.Label();
-            this.pictureBoxPFPMain = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.labelWelcomeSettings = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -70,6 +68,8 @@ namespace ScrunchPLUS
             this.labelAutoLogonSub = new System.Windows.Forms.Label();
             this.labelAutoLogon = new System.Windows.Forms.Label();
             this.AutoLogonBtn = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.labelWelcomeMain = new System.Windows.Forms.Label();
+            this.pictureBoxPFPMain = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.DragControlMain = new Guna.UI2.WinForms.Guna2DragControl(this.components);
             this.DragControlSettings = new Guna.UI2.WinForms.Guna2DragControl(this.components);
             this.panelTop.SuspendLayout();
@@ -77,9 +77,9 @@ namespace ScrunchPLUS
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HomeBtn)).BeginInit();
             this.panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPFPMain)).BeginInit();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPFPSettings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPFPMain)).BeginInit();
             this.SuspendLayout();
             // 
             // ShadowForm
@@ -345,32 +345,6 @@ namespace ScrunchPLUS
             this.panelMain.Size = new System.Drawing.Size(888, 646);
             this.panelMain.TabIndex = 1;
             // 
-            // labelWelcomeMain
-            // 
-            this.labelWelcomeMain.AutoSize = true;
-            this.labelWelcomeMain.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWelcomeMain.ForeColor = System.Drawing.Color.Gainsboro;
-            this.labelWelcomeMain.Location = new System.Drawing.Point(90, 110);
-            this.labelWelcomeMain.Name = "labelWelcomeMain";
-            this.labelWelcomeMain.Size = new System.Drawing.Size(174, 30);
-            this.labelWelcomeMain.TabIndex = 22;
-            this.labelWelcomeMain.Text = "Welcome back...";
-            // 
-            // pictureBoxPFPMain
-            // 
-            this.pictureBoxPFPMain.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxPFPMain.FillColor = System.Drawing.Color.Gray;
-            this.pictureBoxPFPMain.ImageRotate = 0F;
-            this.pictureBoxPFPMain.Location = new System.Drawing.Point(20, 93);
-            this.pictureBoxPFPMain.Name = "pictureBoxPFPMain";
-            this.pictureBoxPFPMain.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.pictureBoxPFPMain.ShadowDecoration.Parent = this.pictureBoxPFPMain;
-            this.pictureBoxPFPMain.Size = new System.Drawing.Size(64, 64);
-            this.pictureBoxPFPMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxPFPMain.TabIndex = 21;
-            this.pictureBoxPFPMain.TabStop = false;
-            this.pictureBoxPFPMain.UseTransparentBackground = true;
-            // 
             // panelSettings
             // 
             this.panelSettings.Controls.Add(this.labelWelcomeSettings);
@@ -390,7 +364,8 @@ namespace ScrunchPLUS
             this.panelSettings.Controls.Add(this.labelAutoLogonSub);
             this.panelSettings.Controls.Add(this.labelAutoLogon);
             this.panelSettings.Controls.Add(this.AutoLogonBtn);
-            this.panelSettings.Location = new System.Drawing.Point(882, 641);
+            this.panelSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSettings.Location = new System.Drawing.Point(0, 75);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(888, 571);
             this.panelSettings.TabIndex = 1;
@@ -545,8 +520,7 @@ namespace ScrunchPLUS
             this.labelDiscordStatusSub.Name = "labelDiscordStatusSub";
             this.labelDiscordStatusSub.Size = new System.Drawing.Size(434, 13);
             this.labelDiscordStatusSub.TabIndex = 5;
-            this.labelDiscordStatusSub.Text = "When app is open, it will display on your discord that you are playing ScrunchPLU" +
-    "S";
+            this.labelDiscordStatusSub.Text = "When app is open, it will display on your discord that you are playing ScrunchPLUS";
             // 
             // labelDiscordStatus
             // 
@@ -582,6 +556,7 @@ namespace ScrunchPLUS
             this.DiscordStatusBtn.UncheckedState.InnerBorderRadius = 7;
             this.DiscordStatusBtn.UncheckedState.InnerColor = System.Drawing.Color.White;
             this.DiscordStatusBtn.UncheckedState.Parent = this.DiscordStatusBtn;
+            this.DiscordStatusBtn.CheckedChanged += new System.EventHandler(this.DiscordStatusBtn_CheckedChanged);
             // 
             // labelAutoLogonSub
             // 
@@ -628,6 +603,33 @@ namespace ScrunchPLUS
             this.AutoLogonBtn.UncheckedState.InnerBorderRadius = 7;
             this.AutoLogonBtn.UncheckedState.InnerColor = System.Drawing.Color.White;
             this.AutoLogonBtn.UncheckedState.Parent = this.AutoLogonBtn;
+            this.AutoLogonBtn.CheckedChanged += new System.EventHandler(this.AutoLogonBtn_CheckedChanged);
+            // 
+            // labelWelcomeMain
+            // 
+            this.labelWelcomeMain.AutoSize = true;
+            this.labelWelcomeMain.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWelcomeMain.ForeColor = System.Drawing.Color.Gainsboro;
+            this.labelWelcomeMain.Location = new System.Drawing.Point(90, 110);
+            this.labelWelcomeMain.Name = "labelWelcomeMain";
+            this.labelWelcomeMain.Size = new System.Drawing.Size(174, 30);
+            this.labelWelcomeMain.TabIndex = 22;
+            this.labelWelcomeMain.Text = "Welcome back...";
+            // 
+            // pictureBoxPFPMain
+            // 
+            this.pictureBoxPFPMain.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxPFPMain.FillColor = System.Drawing.Color.Gray;
+            this.pictureBoxPFPMain.ImageRotate = 0F;
+            this.pictureBoxPFPMain.Location = new System.Drawing.Point(20, 93);
+            this.pictureBoxPFPMain.Name = "pictureBoxPFPMain";
+            this.pictureBoxPFPMain.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.pictureBoxPFPMain.ShadowDecoration.Parent = this.pictureBoxPFPMain;
+            this.pictureBoxPFPMain.Size = new System.Drawing.Size(64, 64);
+            this.pictureBoxPFPMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxPFPMain.TabIndex = 21;
+            this.pictureBoxPFPMain.TabStop = false;
+            this.pictureBoxPFPMain.UseTransparentBackground = true;
             // 
             // DragControlMain
             // 
@@ -655,10 +657,10 @@ namespace ScrunchPLUS
             ((System.ComponentModel.ISupportInitialize)(this.HomeBtn)).EndInit();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPFPMain)).EndInit();
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPFPSettings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPFPMain)).EndInit();
             this.ResumeLayout(false);
 
         }

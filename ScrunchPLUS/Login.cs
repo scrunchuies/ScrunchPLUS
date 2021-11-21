@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -7,27 +6,13 @@ namespace ScrunchPLUS
 {
     public partial class Login : Form
     {
-        //DiscordFields
-        private DiscordRpc.EventHandlers handlers;
-        private DiscordRpc.RichPresence presence;
-
         public Login()
         {
             InitializeComponent();
-            //EpochTime
-            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
-            int secondsSinceEpoch = (int)t.TotalSeconds;
-            //Discord RPC
-            this.handlers = default(DiscordRpc.EventHandlers);
-            DiscordRpc.Initialize("910304415498510406", ref this.handlers, true, null);
-            this.handlers = default(DiscordRpc.EventHandlers);
-            DiscordRpc.Initialize("910304415498510406", ref this.handlers, true, null);
-            this.presence.details = "HEE HEE HEE HAW";
-            this.presence.state = "Logging in...";
-            this.presence.largeImageKey = "logo";
-            this.presence.largeImageText = "ScrunchPLUS";
-            this.presence.startTimestamp = secondsSinceEpoch;
-            DiscordRpc.UpdatePresence(ref this.presence);
+            //StartupSettings
+            SettingsInitializer settingsInitializer = new SettingsInitializer();
+            //settingsInitializer.AutoLoginInitializer();
+            settingsInitializer.DiscordRpcLoginInitializer();
             //RememberMeFiller
             LoginUsernameTxt.Text = ScrunchPLUS.Properties.Settings.Default.UserName;
             LoginPasswordTxt.Text = ScrunchPLUS.Properties.Settings.Default.Password;
@@ -53,14 +38,19 @@ namespace ScrunchPLUS
         {
             if (API.Login(LoginUsernameTxt.Text, LoginPasswordTxt.Text))
             {
-                if (LoginCheckBoxRemMe.Checked)
+                if (LoginCheckBoxRemMe.Checked == true)
                 {
                     ScrunchPLUS.Properties.Settings.Default.UserName = LoginUsernameTxt.Text;
                     ScrunchPLUS.Properties.Settings.Default.Password = LoginPasswordTxt.Text;
                     ScrunchPLUS.Properties.Settings.Default.Save();
                 }
+                else if (LoginCheckBoxRemMe.Checked == false)
+                {
+                    ScrunchPLUS.Properties.Settings.Default.UserName = null;
+                    ScrunchPLUS.Properties.Settings.Default.Password = null;
+                    ScrunchPLUS.Properties.Settings.Default.Save();
+                }
                 //Put code here of what you want to do after successful login
-                MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Main main = new Main();
                 main.Show();
                 this.Hide();

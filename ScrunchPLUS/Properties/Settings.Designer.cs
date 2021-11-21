@@ -46,5 +46,29 @@ namespace ScrunchPLUS.Properties {
                 this["Password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AutoLogin {
+            get {
+                return ((string)(this["AutoLogin"]));
+            }
+            set {
+                this["AutoLogin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DiscordRpc {
+            get {
+                return ((string)(this["DiscordRpc"]));
+            }
+            set {
+                this["DiscordRpc"] = value;
+            }
+        }
     }
 }

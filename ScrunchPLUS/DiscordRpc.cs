@@ -5,19 +5,19 @@ namespace ScrunchPLUS
 {
     class DiscordRpc
     {
-        [DllImport("FancyBubbles.V.2.1.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_Initialize")]
+        [DllImport("DiscordRpc.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_Initialize")]
         public static extern void Initialize(string applicationId, ref DiscordRpc.EventHandlers handlers, bool autoRegister, string optionalSteamId);
 
 
-        [DllImport("FancyBubbles.V.2.1.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_RunCallbacks")]
+        [DllImport("DiscordRpc.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_RunCallbacks")]
         public static extern void RunCallbacks();
 
 
-        [DllImport("FancyBubbles.V.2.1.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_Shutdown")]
+        [DllImport("DiscordRpc.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_Shutdown")]
         public static extern void Shutdown();
 
 
-        [DllImport("FancyBubbles.V.2.1.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_UpdatePresence")]
+        [DllImport("DiscordRpc.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_UpdatePresence")]
         public static extern void UpdatePresence(ref DiscordRpc.RichPresence presence);
 
         internal static void Initialize(string v1, ref object handlers, bool v2, object p)
