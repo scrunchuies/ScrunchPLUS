@@ -44,4 +44,4 @@ Contributors names and contact info
 
 ## License
 
-This project is licensed under the ScrunchPLUS Co.
+This project is licensed under the ScrunchCo.
